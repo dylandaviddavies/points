@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserPoints } from './entities/user-points.entity';
-import { PointTransaction } from './entities/point-transaction.entity';
-import { UserController } from './controllers/user.controller';
-import { UserPointsService } from './services/user-points.service';
-import { PointTransactionController } from './controllers/point-transaction.controller';
-import { PointTransactionService } from './services/point-transaction.service';
-import { PointTransactionSubscriber } from './subscribers/point-transaction.subscriber';
+import { UserPoints } from './user-points/user-points.entity';
+import { PointTransaction } from './point-transaction/point-transaction.entity';
+import { Product } from './product/product.entity';
+import { PointTransactionModule } from './point-transaction/point-transaction.module';
+import { ProductModule } from './product/product.module';
+import { UserPointsModule } from './user-points/user-points.module';
+import { UserProductModule } from './user-product/user-product.module';
+import { UserProduct } from './user-product/user-product.entity';
 
 @Module({
   imports: [
@@ -18,18 +18,15 @@ import { PointTransactionSubscriber } from './subscribers/point-transaction.subs
       database: 'postgres',
       username: 'postgres',
       password: 'postgres',
-      entities: [UserPoints, PointTransaction],
+      entities: [UserPoints, PointTransaction, Product, UserProduct],
       synchronize: true,
       logging: true,
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([UserPoints, PointTransaction]),
-  ],
-  controllers: [AppController, UserController, PointTransactionController],
-  providers: [
-    UserPointsService,
-    PointTransactionService,
-    PointTransactionSubscriber,
+    PointTransactionModule,
+    ProductModule,
+    UserPointsModule,
+    UserProductModule,
   ],
 })
 export class AppModule {}

@@ -1,12 +1,12 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { UserPointsService } from '../services/user-points.service';
+import { UserPointsService } from './user-points.service';
 
-@Controller('/user')
-export class UserController {
+@Controller('/user/:user/points')
+export class UserPointsController {
   constructor(private userPointsService: UserPointsService) {}
 
-  @Get('/:user/points')
-  async getPoints(@Param('user') user: string) {
+  @Get()
+  async get(@Param('user') user: string) {
     const userPoints = await this.userPointsService.findOne(user);
     return userPoints?.points ?? 0;
   }

@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { PointTransaction } from '../entities/point-transaction.entity';
+import { PointTransaction } from './point-transaction.entity';
 
 export class CreatePointTransactionDto {
   @IsEmail()

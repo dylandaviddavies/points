@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreatePointTransactionDto } from '../models/create-point-transaction.dto';
-import { PointTransactionService } from '../services/point-transaction.service';
+import { CreatePointTransactionDto } from './create-point-transaction.dto';
+import { PointTransactionService } from './point-transaction.service';
 
 @Controller('/point-transaction')
 export class PointTransactionController {

@@ -1,25 +1,28 @@
 import {
-  AfterInsert,
+  ChildEntity,
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  TableInheritance,
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum ProductType {
+  AvatarFrame = 'AvatarFrame',
+}
+
 @Entity()
-export class PointTransaction {
+@TableInheritance({ column: { type: 'varchar', name: 'type' } })
+export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  user: string;
+  name: string;
 
   @Column()
   points: number;
-
-  @Column()
-  type: string;
 
   @Column()
   description: string;
@@ -29,4 +32,10 @@ export class PointTransaction {
 
   @UpdateDateColumn()
   updateDate: Date;
+}
+
+@ChildEntity()
+export class AvatarFrame extends Product {
+  @Column()
+  src: string;
 }
